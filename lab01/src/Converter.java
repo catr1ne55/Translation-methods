@@ -1,11 +1,11 @@
 /**
- * Created by catr1ne55 on 19.03.17.
+ * Created by catr1ne55 on 20.05.17.
  */
 class Converter {
     private static String[] Rome = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
     private static int[] Arab = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
 
-    public int RometoArab(String rome) {
+    public static int romeToArab(String rome) {
 
         StringBuffer romeNumber = new StringBuffer(rome);
         int arabNumber = 0, i = 0;
@@ -37,7 +37,7 @@ class Converter {
 
     }
 
-    public String ArabToRome(int num) {
+    public static String arabToRome(int num) {
         String roman = "";
 
         while (num > 0) {

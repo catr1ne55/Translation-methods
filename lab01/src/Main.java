@@ -1,24 +1,23 @@
-import java.util.ArrayList;
-import java.util.List;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+
 
 /**
- * Created by catr1ne55 on 19.03.17.
+ * Created by catr1ne55 on 20.05.17.
  */
 
 public class Main {
     public static void main(String[] args) {
-        Converter converter = new Converter();
-        List<Integer> arab = new ArrayList<>();
-        int sum_arab = 0;
-        for (int i = 0; i < args.length ; i++) {
-            int arab_num = converter.RometoArab(args[i]);
-            arab.add(arab_num);
-            System.out.println(arab_num);
-            sum_arab += arab_num;
+        try {
+            CharStream cs = new ANTLRInputStream(System.in);
+            ExprLexer sl = new ExprLexer(cs);
+            CommonTokenStream ts = new CommonTokenStream(sl);
+            ExprParser ep = new ExprParser(ts);
+            ExprParser.EvalContext sum = ep.eval();
+            System.out.println(Converter.arabToRome(sum.value));
+        } catch (Exception e) {
+            System.out.println("Oops..");
         }
-        System.out.println(sum_arab);
-        String sum_rome = converter.ArabToRome(sum_arab);
-        System.out.println(sum_rome);
-        //System.out.println(converter.ArabToRome(24));
     }
 }
