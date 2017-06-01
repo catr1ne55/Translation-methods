@@ -5,6 +5,10 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by vladimir on 20.05.17.
@@ -22,8 +26,8 @@ public class Compiler {
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
             JavaParser parser = new JavaParser(tokenStream);
             JavaParser.CompilationUnitContext context = parser.compilationUnit();
-            System.out.println(context.bytecode);
-
+            String code = context.bytecode;
+            Files.write(Paths.get(args[0] + ".monad"), Collections.singletonList(code));
         } catch (Exception e) {
             e.printStackTrace();
         }

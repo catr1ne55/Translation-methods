@@ -1,0 +1,96 @@
+.class Main
+.func main
+.String[] args
+ldpop
+push eax 
+.int i
+push 0
+ldpop
+
+jmp for_out1389647288
+.label for1389647288
+push i
+call print
+inc i
+push i
+pop ebx 
+.label for_out1389647288
+push i
+push 50
+ls
+pop eax 
+jnz for1389647288
+pop eax 
+.int t
+push 0
+ldpop
+
+push t
+push 1
+add
+pop t
+.label while25126016
+push t
+push t
+mul
+push 1000
+ls
+pop eax 
+jz while_out25126016
+.int f
+push t
+push 2
+mul
+push 3
+sub
+push 10
+mod
+push t
+inc t
+call foo
+ldpop
+
+dec f
+push f
+call print
+jmp while25126016
+.label while_out25126016
+push t
+push 0
+push 25
+sub
+gr
+neg
+pop eax 
+jz if1582797472
+push 2
+pop t
+.label if1582797472
+push t
+call print
+ret
+
+.func foo
+.int q
+ldpop
+.int r
+ldpop
+push q
+push r
+gr
+pop eax 
+jz ternary1268066861
+push q
+push r
+add
+jmp ternary1268066862
+.label ternary1268066861
+push q
+dec r
+push r
+mul
+.label ternary1268066862
+ret
+ret
+
+

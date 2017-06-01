@@ -28,6 +28,7 @@ public class Cmd {
     public final static String and = "and\n";
     public final static String or = "or\n";
     public final static String xor = "xor\n";
+    public final static String neg = "neg\n";
 
     // flow control
     public final static String label = ".label ";
