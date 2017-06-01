@@ -7,13 +7,17 @@ public class Main {
     public int b = 42;
 
     public static void main(String[] args) {
-        int i = -3;
-        System.out.println(i + 2);
-        System.out.println(i + 3);
+        for (int i = 0; i < 50; ++i) {
+            System.out.println(i);
+        }
+        int t = 0;
+        while (t*t < 1000) {
+            int f = foo(t++, (t * 2 - 3) % 10);
+            System.out.println(--f);
+        }
     }
 
-    public int foo() {
-        System.out.println(1);
-        return 0;
+    public static int foo(int q, int r) {
+        return (q > r ? q + r : q * (--r));
     }
 }
