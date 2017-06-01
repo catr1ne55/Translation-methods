@@ -60,7 +60,13 @@ methodDeclaration returns [String bytecode]
         (   methodBody
         |   ';'
         )
-        {$bytecode = Cmd.methodDecl + $Identifier.getText() + "\n" + $formalParameters.bytecode + $methodBody.bytecode + Cmd.ret + "\n";}
+    {
+        String typeId = _localctx.getChild(0).getText();
+        String id = $Identifier.getText();
+        $bytecode = Cmd.methodDecl + $Identifier.getText() + "\n" +
+                    (id.equals("main") ? "" : $formalParameters.bytecode) + $methodBody.bytecode +
+                    (typeId.equals("void") ? Cmd.ret : "") + "\n";
+    }
 ;
 
 fieldDeclaration returns [String bytecode]
@@ -365,6 +371,14 @@ expression returns [String bytecode, String name]
         {
             StringBuilder s = new StringBuilder();
             s.append($expression.bytecode);
+            s.append(Cmd.not);
+            $bytecode = s.toString();
+
+        }
+    |  '~' expression
+        {
+            StringBuilder s = new StringBuilder();
+            s.append($expression.bytecode);
             s.append(Cmd.neg);
             $bytecode = s.toString();
 
@@ -372,8 +386,8 @@ expression returns [String bytecode, String name]
     |   expression binop expression
     {
         StringBuilder s = new StringBuilder();
-        s.append(((ExpressionContext)_localctx.children.get(0)).bytecode);
         s.append(((ExpressionContext)_localctx.children.get(2)).bytecode);
+        s.append(((ExpressionContext)_localctx.children.get(0)).bytecode);
         s.append($binop.bytecode);
         $bytecode = s.toString();
         $name = "";
@@ -406,8 +420,8 @@ expression returns [String bytecode, String name]
     {
         StringBuilder s = new StringBuilder();
         String name = ((ExpressionContext)_localctx.children.get(0)).name;
-        s.append(((ExpressionContext)_localctx.children.get(0)).bytecode);
         s.append(((ExpressionContext)_localctx.children.get(2)).bytecode);
+        s.append(((ExpressionContext)_localctx.children.get(0)).bytecode);
         s.append($updateBinop.bytecode);
         s.append(Cmd.pop + name + "\n");
         $bytecode = s.toString();
