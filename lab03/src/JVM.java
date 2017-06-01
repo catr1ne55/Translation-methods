@@ -10,11 +10,11 @@ public class JVM {
     private static Memory memory = new Memory();
     private static Stack<Integer> stack = new Stack<>();
     private static Stack<Integer> callStack = new Stack<>();
+    private static Stack<String> variables = new Stack<>();
     private static int eax = 0;
     private static int ebx = 0;
     private static int ecx = 0;
     private static int ip = 0;
-    private static String lastVariable = "";
 
     public static void main(String[] args) {
         if (args.length < 1) {
@@ -26,6 +26,7 @@ public class JVM {
             String[] lines = Files.readAllLines(Paths.get(args[0])).toArray(dummy);
             for (String s : lines) {
                 if (s.length() < 2) {
+                    ip++;
                     continue;
                 }
                 String[] cmd = s.split(" ");
@@ -65,12 +66,12 @@ public class JVM {
         switch (op[0]) {
             case ".int ":
                 memory.set(op[1], 0);
-                lastVariable = op[1];
+                variables.push(op[1]);
                 break;
 
             case ".bool ":
                 memory.set(op[1], 0);
-                lastVariable = op[1];
+                variables.push(op[1]);
                 break;
 
             case Cmd.methodDecl:
@@ -83,14 +84,12 @@ public class JVM {
 
             case Cmd.load:
                 value = Integer.parseInt(op[1]);
-                memory.set(lastVariable, value);
-                lastVariable = "";
+                memory.set(variables.pop(), value);
                 break;
 
             case Cmd.ldpop:
                 value = stack.pop();
-                memory.set(lastVariable, value);
-                lastVariable = "";
+                memory.set(variables.pop(), value);
                 break;
 
             case Cmd.push:
@@ -124,7 +123,7 @@ public class JVM {
                         break;
                 }
                 break;
-
+/*
             case Cmd.mov: //TODO: write this
                 switch (op[1]) {
                     case Cmd.eax:
@@ -141,7 +140,7 @@ public class JVM {
                         break;
                 }
                 break;
-
+*/
             case Cmd.inc:
                 switch (op[1]) {
                     case Cmd.eax:
@@ -305,6 +304,8 @@ public class JVM {
                     callStack.push(ip);
                     ip = memory.get(op[1]);
                 }
+                break;
+            default:
                 break;
         }
         ip++;

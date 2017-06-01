@@ -9,7 +9,7 @@ public class Cmd {
     public final static String ldpop = "ldpop\n";
     public final static String push = "push ";
     public final static String pop = "pop ";
-    public final static String mov = "mov ";
+//    public final static String mov = "mov ";
     public final static String inc = "inc ";
     public final static String dec = "dec ";
     public final static String add = "add\n";

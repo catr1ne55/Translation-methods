@@ -119,7 +119,7 @@ formalParameterList returns [String bytecode]
     {
         StringBuilder s = new StringBuilder();
         for (FormalParameterContext fpc : _localctx.formalParameter()) {
-            s.append(fpc.bytecode);
+            s.insert(0, fpc.bytecode);
         }
         $bytecode = s.toString();
     }
@@ -289,7 +289,7 @@ expressionList returns [String bytecode, int count]
     {
         StringBuilder s = new StringBuilder();
         for (ExpressionContext exc : _localctx.expression()) {
-             s.insert(0, exc.bytecode);
+             s.append(exc.bytecode);
         }
         $bytecode = s.toString();
         $count = _localctx.expression().size();
