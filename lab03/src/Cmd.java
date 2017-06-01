@@ -29,20 +29,13 @@ public class Cmd {
     public final static String or = "or\n";
     public final static String xor = "xor\n";
     public final static String neg = "neg\n";
+    public final static String not = "not\n";
 
     // flow control
     public final static String label = ".label ";
-    public final static String cmp = "cmp ";
     public final static String jz = "jz ";
     public final static String jnz = "jnz ";
-    public final static String je = "je ";
-    public final static String jne = "jne ";
-    public final static String jg = "jg ";
-    public final static String jge = "jge ";
-    public final static String jl = "jl ";
-    public final static String jle = "jle ";
     public final static String jmp = "jmp ";
-    public final static String loop = "loop ";
     public final static String call = "call ";
 
     // 32-bit registers

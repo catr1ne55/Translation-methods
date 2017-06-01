@@ -1,73 +1,27 @@
 .class Main
 .func main
-.String[] args
-ldpop
-push eax 
 .int i
 push 0
 ldpop
 
-jmp for_out1389647288
-.label for1389647288
+push 1
+pop i
+.label while2114694065
+push 50
 push i
+ls
+pop eax 
+jz while_out2114694065
+push 1
+push i
+add
+push i
+call foo
 call print
 inc i
 push i
-pop ebx 
-.label for_out1389647288
-push i
-push 50
-ls
-pop eax 
-jnz for1389647288
-pop eax 
-.int t
-push 0
-ldpop
-
-push t
-push 1
-add
-pop t
-.label while25126016
-push t
-push t
-mul
-push 1000
-ls
-pop eax 
-jz while_out25126016
-.int f
-push t
-push 2
-mul
-push 3
-sub
-push 10
-mod
-push t
-inc t
-call foo
-ldpop
-
-dec f
-push f
-call print
-jmp while25126016
-.label while_out25126016
-push t
-push 0
-push 25
-sub
-gr
-neg
-pop eax 
-jz if1582797472
-push 2
-pop t
-.label if1582797472
-push t
-call print
+jmp while2114694065
+.label while_out2114694065
 ret
 
 .func foo
@@ -75,22 +29,21 @@ ret
 ldpop
 .int r
 ldpop
-push q
 push r
+push q
 gr
 pop eax 
-jz ternary1268066861
-push q
+jz ternary1076835071
 push r
-add
-jmp ternary1268066862
-.label ternary1268066861
 push q
+add
+jmp ternary1076835072
+.label ternary1076835071
 dec r
 push r
+push q
 mul
-.label ternary1268066862
-ret
+.label ternary1076835072
 ret
 
 
