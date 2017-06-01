@@ -7,7 +7,7 @@ eval returns [int value]
 sum[int num] returns [int value]
     :
     | term '+' other = sum[$num + $term.value]		 { $value = $other.value; }
-    | term                                               { $value = $num + $term.value; }            
+    | term                                           { $value = $num + $term.value; }
     ;
 
 term returns [int value]: 
