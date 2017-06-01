@@ -338,6 +338,13 @@ expression returns [String bytecode, String name]
             $name = "";
         }
     |   '-' expression
+        {
+            StringBuilder s = new StringBuilder();
+            s.append(Cmd.push + 0 + "\n");
+            s.append($expression.bytecode);
+            s.append(Cmd.sub);
+            $bytecode = s.toString();
+        }
     |   '++' expression
         {
              StringBuilder s = new StringBuilder();
@@ -354,9 +361,14 @@ expression returns [String bytecode, String name]
              $bytecode = s.toString();
              $name = "";
         }
-    |   ('~'
-        |'!'
-        ) expression
+    |  '!' expression
+        {
+            StringBuilder s = new StringBuilder();
+            s.append($expression.bytecode);
+            s.append(Cmd.neg);
+            $bytecode = s.toString();
+
+        }
     |   expression binop expression
     {
         StringBuilder s = new StringBuilder();
@@ -382,20 +394,25 @@ expression returns [String bytecode, String name]
         $bytecode = s.toString();
         $name = "";
     }
-    |   <assoc=right> expression
-        (   '='
-        |   '+='
-        |   '-='
-        |   '*='
-        |   '/='
-        |   '&='
-        |   '|='
-        |   '^='
-        |   '>>='
-        |   '<<='
-        |   '%='
-        )
-        expression
+    |   <assoc=right> expression '=' expression
+    {
+        StringBuilder s = new StringBuilder();
+        String name = ((ExpressionContext)_localctx.children.get(0)).name;
+        s.append(((ExpressionContext)_localctx.children.get(2)).bytecode);
+        s.append(Cmd.pop + name + "\n");
+        $bytecode = s.toString();
+    }
+    |   <assoc=right> expression updateBinop expression
+    {
+        StringBuilder s = new StringBuilder();
+        String name = ((ExpressionContext)_localctx.children.get(0)).name;
+        s.append(((ExpressionContext)_localctx.children.get(0)).bytecode);
+        s.append(((ExpressionContext)_localctx.children.get(2)).bytecode);
+        s.append($updateBinop.bytecode);
+        s.append(Cmd.pop + name + "\n");
+        $bytecode = s.toString();
+
+    }
 ;
 
 binop returns [String bytecode]
@@ -435,6 +452,29 @@ binop returns [String bytecode]
     {$bytecode = Cmd.or;}
     |   '^'
     {$bytecode = Cmd.xor;}
+;
+
+updateBinop returns [String bytecode]
+    :   '+='
+    {$bytecode = Cmd.add;}
+    |   '-='
+    {$bytecode = Cmd.sub;}
+    |   '*='
+    {$bytecode = Cmd.mul;}
+    |   '/='
+    {$bytecode = Cmd.div;}
+    |   '&='
+    {$bytecode = Cmd.and;}
+    |   '|='
+    {$bytecode = Cmd.or;}
+    |   '^='
+    {$bytecode = Cmd.xor;}
+    |   '>>='
+    {$bytecode = Cmd.rsh;}
+    |   '<<='
+    {$bytecode = Cmd.lsh;}
+    |   '%='
+    {$bytecode = Cmd.mod;}
 ;
 
 primary returns [String bytecode, String name]

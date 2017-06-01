@@ -327,6 +327,16 @@ public interface JavaListener extends ParseTreeListener {
 	 */
 	void exitBinop(JavaParser.BinopContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JavaParser#updateBinop}.
+	 * @param ctx the parse tree
+	 */
+	void enterUpdateBinop(JavaParser.UpdateBinopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JavaParser#updateBinop}.
+	 * @param ctx the parse tree
+	 */
+	void exitUpdateBinop(JavaParser.UpdateBinopContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JavaParser#primary}.
 	 * @param ctx the parse tree
 	 */
