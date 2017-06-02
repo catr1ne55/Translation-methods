@@ -1293,7 +1293,7 @@ public class JavaParser extends Parser {
 
 			        StringBuilder s = new StringBuilder();
 			        for (FormalParameterContext fpc : _localctx.formalParameter()) {
-			            s.append(fpc.bytecode);
+			            s.insert(0, fpc.bytecode);
 			        }
 			        ((FormalParameterListContext)_localctx).bytecode =  s.toString();
 			    
@@ -2241,7 +2241,7 @@ public class JavaParser extends Parser {
 
 			        StringBuilder s = new StringBuilder();
 			        for (ExpressionContext exc : _localctx.expression()) {
-			             s.insert(0, exc.bytecode);
+			             s.append(exc.bytecode);
 			        }
 			        ((ExpressionListContext)_localctx).bytecode =  s.toString();
 			        ((ExpressionListContext)_localctx).count =  _localctx.expression().size();
