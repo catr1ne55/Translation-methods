@@ -77,11 +77,13 @@ fieldDeclaration returns [String bytecode]
 variableDeclarator returns [String bytecode]
     :   variableDeclaratorId ('=' expression)?
         {String id = $variableDeclaratorId.text;
-         String init = Cmd.load + "0\n";
+         String init = "";
          if (_localctx.expression() != null) {
-             init = $expression.bytecode + Cmd.ldpop;
+             init = $expression.bytecode;
+         } else {
+             init = Cmd.push + "0\n";
          }
-         $bytecode = id + "\n" + init;
+         $bytecode = id + "\n" + init + Cmd.pop + id;
         }
     ;
 
@@ -130,7 +132,7 @@ formalParameter returns [String bytecode]
     {
         StringBuilder s = new StringBuilder();
         s.append("." + $typeType.text + " " + $variableDeclaratorId.text + "\n");
-        s.append(Cmd.ldpop);
+        s.append(Cmd.pop + $variableDeclaratorId.text + "\n");
         $bytecode = s.toString();
     }
     ;
