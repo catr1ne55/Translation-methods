@@ -5,8 +5,6 @@ public class Cmd {
     public final static String classDecl = ".class ";
     public final static String methodDecl = ".func ";
     public final static String ret = "ret\n";
-    public final static String load = "ld ";
-    public final static String ldpop = "ldpop\n";
     public final static String push = "push ";
     public final static String pop = "pop ";
 //    public final static String mov = "mov ";

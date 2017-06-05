@@ -10,7 +10,6 @@ public class JVM {
     private static Memory memory = new Memory();
     private static Stack<Integer> stack = new Stack<>();
     private static Stack<Integer> callStack = new Stack<>();
-    private static Stack<String> variables = new Stack<>();
     private static int eax = 0;
     private static int ebx = 0;
     private static int ecx = 0;
@@ -66,12 +65,10 @@ public class JVM {
         switch (op[0]) {
             case ".int ":
                 memory.set(op[1], 0);
-                variables.push(op[1]);
                 break;
 
             case ".bool ":
                 memory.set(op[1], 0);
-                variables.push(op[1]);
                 break;
 
             case Cmd.methodDecl:
@@ -80,16 +77,6 @@ public class JVM {
 
             case Cmd.ret:
                 ip = callStack.pop();
-                break;
-
-            case Cmd.load:
-                value = Integer.parseInt(op[1]);
-                memory.set(variables.pop(), value);
-                break;
-
-            case Cmd.ldpop:
-                value = stack.pop();
-                memory.set(variables.pop(), value);
                 break;
 
             case Cmd.push:
@@ -123,24 +110,7 @@ public class JVM {
                         break;
                 }
                 break;
-/*
-            case Cmd.mov: //TODO: write this
-                switch (op[1]) {
-                    case Cmd.eax:
 
-                        break;
-                    case Cmd.ebx:
-                        ebx = stack.pop();
-                        break;
-                    case Cmd.ecx:
-                        ecx = stack.pop();
-                        break;
-                    default:
-                        memory.set(op[1], stack.pop());
-                        break;
-                }
-                break;
-*/
             case Cmd.inc:
                 switch (op[1]) {
                     case Cmd.eax:

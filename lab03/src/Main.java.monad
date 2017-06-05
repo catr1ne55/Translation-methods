@@ -3,8 +3,7 @@
 push eax 
 .int i
 push 0
-ldpop
-
+pop i
 jmp for_out761960786
 .label for761960786
 push i
@@ -21,8 +20,7 @@ jnz for761960786
 pop eax 
 .int t
 push 0
-ldpop
-
+pop t
 push 1
 push t
 add
@@ -46,8 +44,7 @@ mul
 sub
 mod
 call foo
-ldpop
-
+pop f
 dec f
 push f
 call print
@@ -96,9 +93,9 @@ ret
 
 .func foo
 .int r
-ldpop
+pop r
 .int q
-ldpop
+pop q
 push r
 push q
 gr
@@ -118,9 +115,9 @@ ret
 
 .func hcf_recursive
 .int b
-ldpop
+pop b
 .int a
-ldpop
+pop a
 push 0
 push b
 eq
@@ -138,9 +135,9 @@ ret
 
 .func hcf
 .int d
-ldpop
+pop d
 .int c
-ldpop
+pop c
 .label while961419791
 push 0
 push d

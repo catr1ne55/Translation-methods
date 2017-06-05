@@ -916,11 +916,13 @@ public class JavaParser extends Parser {
 			}
 
 			String id = (((VariableDeclaratorContext)_localctx).variableDeclaratorId!=null?_input.getText(((VariableDeclaratorContext)_localctx).variableDeclaratorId.start,((VariableDeclaratorContext)_localctx).variableDeclaratorId.stop):null);
-			         String init = Cmd.load + "0\n";
+			         String init = "";
 			         if (_localctx.expression() != null) {
-			             init = ((VariableDeclaratorContext)_localctx).expression.bytecode + Cmd.ldpop;
+			             init = ((VariableDeclaratorContext)_localctx).expression.bytecode;
+			         } else {
+			             init = Cmd.push + "0\n";
 			         }
-			         ((VariableDeclaratorContext)_localctx).bytecode =  id + "\n" + init;
+			         ((VariableDeclaratorContext)_localctx).bytecode =  id + "\n" + init + Cmd.pop + id;
 			        
 			}
 		}
@@ -1368,7 +1370,7 @@ public class JavaParser extends Parser {
 
 			        StringBuilder s = new StringBuilder();
 			        s.append("." + (((FormalParameterContext)_localctx).typeType!=null?_input.getText(((FormalParameterContext)_localctx).typeType.start,((FormalParameterContext)_localctx).typeType.stop):null) + " " + (((FormalParameterContext)_localctx).variableDeclaratorId!=null?_input.getText(((FormalParameterContext)_localctx).variableDeclaratorId.start,((FormalParameterContext)_localctx).variableDeclaratorId.stop):null) + "\n");
-			        s.append(Cmd.ldpop);
+			        s.append(Cmd.pop + (((FormalParameterContext)_localctx).variableDeclaratorId!=null?_input.getText(((FormalParameterContext)_localctx).variableDeclaratorId.start,((FormalParameterContext)_localctx).variableDeclaratorId.stop):null) + "\n");
 			        ((FormalParameterContext)_localctx).bytecode =  s.toString();
 			    
 			}
